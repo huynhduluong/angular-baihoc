@@ -1,0 +1,21 @@
+.wrapper{
+    display: flex;
+    height: 400px;
+}
+
+.content{
+    width: 70%;
+    background-color: yellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.sidebar{
+    width: 30%;
+    background-color: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
