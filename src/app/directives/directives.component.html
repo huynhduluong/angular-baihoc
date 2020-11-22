@@ -1,0 +1,140 @@
+<button class="btn btn-success" (click)="isActive = !isActive">Toggle</button>
+<!-- *ngIf ẩn hiện tag/component không tồn tại thẻ trên giao diện -->
+<h1 *ngIf="isActive">Hello Cybersoft</h1>
+
+<!-- Chưa đăng nhập isLogin = false -->
+<!-- Cách 1 -->
+<!-- <div *ngIf="!isLogin">
+    <p>Login</p>
+    <button class="btn btn-danger" (click)="isLogin = true">Đăng nhập</button>
+</div> -->
+
+<!-- đã đăng nhập isLogin=true -->
+<div *ngIf="isLogin; else loginTemplate">
+  <p>Hello</p>
+  <button class="btn btn-danger" (click)="isLogin = false">Đăng xuất</button>
+</div>
+
+<!-- Cách 2 -->
+<!-- ng-template: mặc định không được render ra giao diện, mình cần phải gọi đến thì mới render ra -->
+<ng-template #loginTemplate>
+  <p>Login</p>
+  <button class="btn btn-danger" (click)="isLogin = true">Đăng nhập</button>
+</ng-template>
+
+<!-- ngSwitch: không có dấu sao trước thì vế phải nhận vào là chuỗi, 
+    [ngSwitch]: vế bên phảu nhận về 1 biến
+-->
+<!-- *ngSwitchCase: vế bên phải nhận về luôn luôn là biến -> muốn hiểu là chuỗi thì phải bọc trong dấu nháy đơn -->
+<div [ngSwitch]="color">
+  <p *ngSwitchCase="'red'">Red</p>
+  <p *ngSwitchCase="'blue'">Blue</p>
+  <p *ngSwitchCase="'green'">Green</p>
+  <p *ngSwitchDefault>Default</p>
+</div>
+
+<select [value]="color" (change)="color = $event.target.value">
+  <option value="">Default</option>
+  <option value="red">Red</option>
+  <option value="blue">Blue</option>
+  <option value="green">Green</option>
+</select>
+
+<!-- biến index đầu do mình tạo, index sau là angular cung cấp -->
+<p *ngFor="let sv of dssv; let idx = index">
+  {{ idx + 1 }} - {{ sv.hoTen }} - {{ sv.lop }}
+</p>
+
+<!-- Không thể có 2 structural directives trên cùng 1 thẻ -->
+<!-- cách 2 -->
+<div class="d-flex">
+  <!-- ng-container tương đương với fragment bên react, tag này sẽ không được render ra giao diện -->
+  <ng-container *ngIf="dssv">
+    <p *ngFor="let sv of dssv; index as idx">
+      {{ idx + 1 }} - {{ sv.hoTen }} - {{ sv.lop }}
+    </p>
+  </ng-container>
+</div>
+
+<!-- ng-container kết hợp ng-template -->
+<!-- tái sử dụng 1 layout trong component -->
+
+<!-- tạo ra layout để tái sử dụng -->
+<ng-template #templateAlert>
+  <div class="alert alert-danger">
+    <strong>Alert</strong>
+  </div>
+</ng-template>
+
+<!-- Nhược điểm chỉ sử dụng được trong component này -->
+<ng-container *ngTemplateOutlet="templateAlert"></ng-container>
+<ng-container *ngTemplateOutlet="templateAlert"></ng-container>
+<ng-container *ngTemplateOutlet="templateAlert"></ng-container>
+
+<!-- ng-content -->
+<!-- Dùng để thêm vào content cho component đã tạo sẵn class -->
+<app-button> Hello </app-button>
+
+<app-button> Cybersoft </app-button>
+
+<!-- Dùng 11 tên khác để select cho ng-content không bị trùng -->
+<app-card>
+  <p slot="header">Header</p>
+  <p slot="body">Body</p>
+  <p slot="footer">Footer</p>
+</app-card>
+
+<div class="container">
+  <div class="row">
+    <div *ngFor="let sv of dssv" class="col-sm-4">
+      <app-card>
+        <p slot="header">{{ sv.lop }}</p>
+        <p slot="body">{{ sv.hoTen }}</p>
+        <button slot="footer">Chi tiết</button>
+      </app-card>
+    </div>
+  </div>
+</div>
+<br />
+<br />
+<br />
+
+<!-- Attributes directives -->
+<!-- [class]="'tên class' : điều kiện"
+    => nếu điều kiện là true thì tên class được thêm vào
+-->
+<p class="text-center" [class]="{
+    'text-primary': isActive,
+    'text-secondary': !isActive,
+    'bg-primary': isActive
+}">Cybersoft</p>
+
+<!-- 
+    [style]="
+    {'thuộc tính css': giá trị của biến}
+"
+ -->
+
+<p style="text-align: center;" [style]="
+    {'background-color': color}
+" >ngStyle</p>
+
+
+<div style="background-repeat: no-repeat;height: '300px';" [style]="{'background-image': 'url('+ imageUrl + ')'}"></div>
+
+<div [innerHTML]="template"></div>
+
+<!-- ng g directive highlight: để tạo ra directive mới
+    sau đó tạo div mới và thêm tên trong selector của file module mới tạo
+-->
+
+<div appHighlight>Highlight</div>
+
+
+
+
+
+
+
+
+

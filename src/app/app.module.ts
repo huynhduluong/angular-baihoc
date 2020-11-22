@@ -1,3 +1,4 @@
+import { DirectivesModule } from './directives/directives.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -26,7 +27,7 @@ import { Baitap4Module } from './baitap4/baitap4.module';
   //Module do angular cung cấp: RouterModule, HttpClientModule
   //Module do dev định nghĩa: HomeModule
   imports: [
-    BrowserModule, HomeModule, Baitap2Module, DataBindingModule, Baitap3Module, Baitap4Module
+    BrowserModule, HomeModule, Baitap2Module, DataBindingModule, Baitap3Module, Baitap4Module, DirectivesModule
   ],
   //providers: nơi khai báo các service
   providers: [],
